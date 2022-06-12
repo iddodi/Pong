@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: black;">
+    <div class="container">
+        <p class="pong">Pong</p> <br> <br> <br> <br>
+        <a href="practice.html" class="noOfPlayers">practice mode</a> <br><br> <br> <br>
+        <a href="twoPlayers.html" class="noOfPlayers">2 players</a>
+    </div>
+  <style>
+      body {
+          background-color: black;
+      }
+
+      .container {
+        width: 20%; 
+        height: auto; 
+        margin-left: auto; 
+        margin-right: auto; 
+        margin-top: 0%;
+      }
+
+      .pong {
+        font-size: 500%; 
+        font-family: 'Press Start 2P', cursive; 
+        color: white;
+        
+      }
+
+      .noOfPlayers {
+        font-family: 'Press Start 2P', cursive;
+        color: white;
+        font-size: 150%;
+        background-image: linear-gradient(90deg, white, white);
+        background-size: 0% 5px;
+        background-repeat: no-repeat;
+        text-decoration: none;
+        background-position: bottom;
+        transition: background-size 300ms ease;
+      }
+
+      .noOfPlayers:hover {
+        background-size: 100% 5px;
+        transition-delay: 20ms;
+        transition-duration: 500ms;
+    }

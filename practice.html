@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Press Start 2P';
+            padding: 0;
+            margin: 0;
+        }
+        canvas{
+            background-color: #000000;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="1530px" height="740px"></canvas>    
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        var upPressed = false;
+        var downPressed = false;
+        
+        var ballRadius = 8.121321;
+        
+        var x = canvas.width/2;
+        var y = canvas.height/2;
+        
+        var dx = -5;
+        var dy = 5;
+
+        var paddleHeight = 90;
+        var paddleWidth = 10;
+        var paddle1Y = canvas.height/2-paddleHeight/2;
+        var paddle2X = 1515;
+
+        var hits = 0;
+
+        document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
+
+        function keyDownHandler(e) {
+          if(e.key == "Up" || e.key == "ArrowUp") {
+            upPressed = true;
+          } else if(e.key == "Down" || e.key == "ArrowDown") {
+            downPressed = true;
+          }
+        }
+
+        function keyUpHandler(e) {
+          if(e.key == "Up" || e.key == "ArrowUp") {
+            upPressed = false;
+          } else if(e.key == "Down" || e.key == "ArrowDown") {
+            downPressed = false;
+          }
+        }
+
+        function drawBall() {
+          ctx.beginPath();
+          ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+          ctx.closePath();
+        }
+
+        function drawNet() {
+          ctx.beginPath();
+          ctx.setLineDash([5, 5]);
+          ctx.moveTo(canvas.width/2, 0);
+          ctx.lineTo(canvas.width/2, canvas.height);
+          ctx.strokeStyle = "white";
+          ctx.stroke();
+        }
+
+        function drawPaddleOne() {
+          ctx.beginPath();
+          ctx.rect(paddle2X, paddle1Y, paddleWidth, paddleHeight);
+          ctx.fillStyle = "white";
+          ctx.fill();
+          ctx.closePath();
+        }
+
+        function drawHits() {
+          ctx.font = "250px Fantasy";
+          ctx.fillStyle = "#ffffff";
+          ctx.fillText(hits, 1130, 220);
+        }
+
+        function game() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawBall();
+          drawNet();
+          drawPaddleOne();
+          drawHits();
+          
+          x += dx;
+          y += dy;
+
+          if(y <= 0 || y + dy >= canvas.height) {
+            dy = -dy;
+          } else if(x + dx == 0) {
+            dx = -dx;
+          }
+
+          if(x + dx <= 0) {
+              dx = -dx;
+              hits++;
+          } else if(x + dx >= canvas.width) {
+              if(y + dy > paddle1Y && y + dy < paddle1Y + paddleHeight) {
+                  dx = -dx;
+                  hits++;
+              } else {
+                alert("try again!");
+                document.location.reload();
+                clearInterval(interval);
+              }
+            } 
+
+          if(upPressed) {
+            paddle1Y -= 5;
+          } else if(downPressed) {
+            paddle1Y += 5; 
+          }
+          if(paddle1Y + paddleHeight > canvas.height) {
+              paddle1Y = canvas.height - paddleHeight;
+          } else if(paddle1Y + paddleHeight/2 <= 0) {
+              paddle1Y = 0;
+            }         
+        }
+        
+        var interval = setInterval(game, 10);
+    </script>
+</body>
+</html>
