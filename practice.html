@@ -132,10 +132,11 @@
               paddle1Y = canvas.height - paddleHeight;
           } else if(paddle1Y + paddleHeight/2 <= 0) {
               paddle1Y = 0;
-            }         
+            }     
+            
+          requestAnimationFrame(game);  
         }
-        
-        var interval = setInterval(game, 10);
+        game();
     </script>
 </body>
 </html>
